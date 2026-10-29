@@ -1,7 +1,7 @@
 "use client"
 
 import { ContentQuery } from "@/components/view-page"
-import { SHOW_RESOURCES } from "@/lib/feature-flags"
+import { SHOW_BLOGS, SHOW_RESOURCES } from "@/lib/feature-flags"
 import { LocaleContent } from "@/payload/content-types"
 import { useLanguage } from "@/provider/language-provider"
 import Image from "next/image"
@@ -23,7 +23,7 @@ const navHref: Record<string, string> = {
 }
 
 const projectKeys = SHOW_RESOURCES ? ["about", "research", "resources"] : ["about", "research"]
-const connectKeys = ["people", "blogs", "contact"]
+const connectKeys = SHOW_BLOGS ? ["people", "blogs", "contact"] : ["people", "contact"]
 
 export function Footer() {
   const { locale } = useLanguage()

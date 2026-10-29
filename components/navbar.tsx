@@ -10,7 +10,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { ContentQuery, } from "./view-page"
-import { SHOW_RESOURCES } from "@/lib/feature-flags"
+import { SHOW_BLOGS, SHOW_RESOURCES } from "@/lib/feature-flags"
 import { useLanguage } from "@/provider/language-provider"
 
 const navHref: Record<string, string> = {
@@ -35,7 +35,9 @@ function NavbarView({ data }: { data: LocaleContent["nav"] | null | undefined })
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const { brand, items: allItems } = data ?? {}
-  const items = SHOW_RESOURCES ? allItems : allItems?.filter((item) => item.key !== "resources")
+  const items = allItems?.filter(
+    (item) => (SHOW_RESOURCES || item.key !== "resources") && (SHOW_BLOGS || item.key !== "blogs")
+  )
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">

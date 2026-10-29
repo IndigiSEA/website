@@ -2,14 +2,18 @@
 
 import { Button } from "@/components/ui/button"
 import ViewPage from "@/components/view-page"
+import { SHOW_BLOGS } from "@/lib/feature-flags"
 import { LocaleContent } from "@/payload/content-types"
 import { ArrowRight, Award, Calendar, FileText, MapPin } from "lucide-react"
 import Link from "next/link"
+import { notFound } from "next/navigation"
 import { useState } from "react"
 
 const categoryIcons = [MapPin, Award, FileText]
 
 export default function BlogsPage() {
+  if (!SHOW_BLOGS) notFound()
+
   return ViewPage({
     page: "blogs",
     View: BlogsView,
