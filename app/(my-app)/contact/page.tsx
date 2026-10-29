@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import ViewPage from "@/components/view-page"
+import { SHOW_CONTACT_MAP, SHOW_CONTACT_TEAM } from "@/lib/feature-flags"
 import { LocaleContent } from "@/payload/content-types"
 import { Mail, MapPin, Phone, Send } from "lucide-react"
 
@@ -136,48 +137,52 @@ function ContactView({ data }: { data: LocaleContent["contact"] | null | undefin
       </section>
 
       {/* Team Locations */}
-      <section className="border-t border-border bg-muted/30 py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-foreground">{data?.teamTitle}</h2>
-          <p className="mt-2 text-muted-foreground">{data?.teamSubtitle}</p>
+      {SHOW_CONTACT_TEAM && (
+        <section className="border-t border-border bg-muted/30 py-24">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-foreground">{data?.teamTitle}</h2>
+            <p className="mt-2 text-muted-foreground">{data?.teamSubtitle}</p>
 
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {data?.teamLocations.map((member) => (
-              <div key={member.name} className="rounded-xl bg-card p-6 shadow-sm">
-                <h3 className="font-semibold text-card-foreground">{member.name}</h3>
-                <p className="text-sm text-primary">{member.role}</p>
-                <div className="mt-4 space-y-2">
-                  <div className="flex items-start gap-2">
-                    <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
-                    <p className="text-sm text-muted-foreground">{member.location}</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Mail className="h-4 w-4 text-muted-foreground" />
-                    <a href={`mailto:${member.email}`} className="text-sm text-muted-foreground hover:text-primary">
-                      {member.email}
-                    </a>
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {data?.teamLocations.map((member) => (
+                <div key={member.name} className="rounded-xl bg-card p-6 shadow-sm">
+                  <h3 className="font-semibold text-card-foreground">{member.name}</h3>
+                  <p className="text-sm text-primary">{member.role}</p>
+                  <div className="mt-4 space-y-2">
+                    <div className="flex items-start gap-2">
+                      <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
+                      <p className="text-sm text-muted-foreground">{member.location}</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Mail className="h-4 w-4 text-muted-foreground" />
+                      <a href={`mailto:${member.email}`} className="text-sm text-muted-foreground hover:text-primary">
+                        {member.email}
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Map Placeholder */}
-      <section className="py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-foreground">{data?.mapTitle}</h2>
-          <p className="mt-2 text-muted-foreground">{data?.mapSubtitle}</p>
-          <div className="mt-8 rounded-2xl border border-border bg-muted/30 p-12">
-            <div className="flex flex-col items-center justify-center text-center">
-              <MapPin className="h-16 w-16 text-primary/30" />
-              <p className="mt-4 text-lg font-medium text-foreground">{data?.mapPlaceholderTitle}</p>
-              <p className="mt-2 text-sm text-muted-foreground">{data?.mapPlaceholderSubtitle}</p>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* Map Placeholder */}
+      {SHOW_CONTACT_MAP && (
+        <section className="py-24">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <h2 className="text-2xl font-bold text-foreground">{data?.mapTitle}</h2>
+            <p className="mt-2 text-muted-foreground">{data?.mapSubtitle}</p>
+            <div className="mt-8 rounded-2xl border border-border bg-muted/30 p-12">
+              <div className="flex flex-col items-center justify-center text-center">
+                <MapPin className="h-16 w-16 text-primary/30" />
+                <p className="mt-4 text-lg font-medium text-foreground">{data?.mapPlaceholderTitle}</p>
+                <p className="mt-2 text-sm text-muted-foreground">{data?.mapPlaceholderSubtitle}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   )
 }
