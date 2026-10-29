@@ -2,11 +2,15 @@
 
 import { Button } from "@/components/ui/button"
 import ViewPage from "@/components/view-page"
+import { SHOW_RESOURCES } from "@/lib/feature-flags"
 import { LocaleContent } from "@/payload/content-types"
 import { Book, Database, ExternalLink, FileText, Lock, Wrench } from "lucide-react"
 import Link from "next/link"
+import { notFound } from "next/navigation"
 
 export default function ResourcesPage() {
+  if (!SHOW_RESOURCES) notFound()
+
   return ViewPage({
     page: "resources",
     View: ResourcesView,

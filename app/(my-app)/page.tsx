@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import ViewPage from "@/components/view-page"
 import { LocaleContent } from "@/payload/content-types"
+import { SHOW_RESOURCES } from "@/lib/feature-flags"
 import { ArrowRight, BookOpen, Cpu, Users } from "lucide-react"
 import Link from "next/link"
 
@@ -112,11 +113,13 @@ function HomeView({ data }: { data: LocaleContent["home"] | null | undefined }) 
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-background/30 hover:bg-background/80">
-                <Link href="/resources">
-                  {data ? data.heroSecondaryCta : <Skeleton className="h-6 w-32 bg-foreground/0" />}
-                </Link>
-              </Button>
+              {SHOW_RESOURCES && (
+                <Button asChild size="lg" variant="outline" className="border-background/30 hover:bg-background/80">
+                  <Link href="/resources">
+                    {data ? data.heroSecondaryCta : <Skeleton className="h-6 w-32 bg-foreground/0" />}
+                  </Link>
+                </Button>
+              )}
             </div>
           </div>
         </div>
@@ -147,12 +150,14 @@ function HomeView({ data }: { data: LocaleContent["home"] | null | undefined }) 
             <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">{data?.ctaTitle}</h2>
             <p className="mt-4 text-lg text-muted-foreground">{data?.ctaSubtitle}</p>
             <div className="mt-10 flex flex-wrap justify-center gap-4">
-              <Button asChild size="lg">
-                <Link href="/resources">
-                  {data?.ctaPrimary}
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
+              {SHOW_RESOURCES && (
+                <Button asChild size="lg">
+                  <Link href="/resources">
+                    {data?.ctaPrimary}
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              )}
               <Button asChild size="lg" variant="outline">
                 <Link href="/research">{data?.ctaSecondary}</Link>
               </Button>

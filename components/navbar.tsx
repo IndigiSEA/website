@@ -10,6 +10,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { ContentQuery, } from "./view-page"
+import { SHOW_RESOURCES } from "@/lib/feature-flags"
 import { useLanguage } from "@/provider/language-provider"
 
 const navHref: Record<string, string> = {
@@ -33,13 +34,14 @@ function NavbarView({ data }: { data: LocaleContent["nav"] | null | undefined })
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  const { brand, items } = data ?? {}
+  const { brand, items: allItems } = data ?? {}
+  const items = SHOW_RESOURCES ? allItems : allItems?.filter((item) => item.key !== "resources")
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <Link href="/">
-          <Image src="/images/indigisea-logo.png" alt={brand ?? "IndigiSEA"} width={96} height={64} className="h-16 w-auto" priority />
+          <Image src="/images/indigisea-logo.png" alt={brand ?? "IndigiSEA"} width={78} height={64} className="h-16 w-auto" priority />
         </Link>
 
         {/* Desktop Navigation */}

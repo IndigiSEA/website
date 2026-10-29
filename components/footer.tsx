@@ -1,6 +1,7 @@
 "use client"
 
 import { ContentQuery } from "@/components/view-page"
+import { SHOW_RESOURCES } from "@/lib/feature-flags"
 import { LocaleContent } from "@/payload/content-types"
 import { useLanguage } from "@/provider/language-provider"
 import Image from "next/image"
@@ -21,7 +22,7 @@ const navHref: Record<string, string> = {
   contact: "/contact",
 }
 
-const projectKeys = ["about", "research", "resources"]
+const projectKeys = SHOW_RESOURCES ? ["about", "research", "resources"] : ["about", "research"]
 const connectKeys = ["people", "blogs", "contact"]
 
 export function Footer() {
@@ -46,7 +47,7 @@ export function FooterView({ footerData, navData }: FooterViewProps) {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div className="md:col-span-2">
             <Link href="/">
-              <Image src="/images/indigisea-logo.png" alt={brand ?? "IndigiSEA"} width={120} height={80} className="h-20 w-auto" />
+              <Image src="/images/indigisea-logo.png" alt={brand ?? "IndigiSEA"} width={97} height={80} className="h-20 w-auto" />
             </Link>
             <p className="mt-4 max-w-md text-sm text-muted-foreground">{tagline}</p>
           </div>
