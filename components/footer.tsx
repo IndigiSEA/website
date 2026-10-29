@@ -45,9 +45,8 @@ export function FooterView({ footerData, navData }: FooterViewProps) {
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
           <div className="md:col-span-2">
-            <Link href="/" className="flex items-center gap-2">
-              <Image src="/images/indigisea-icon.png" alt="" width={40} height={40} className="h-10 w-10" />
-              <span className="text-xl font-bold text-foreground">{brand}</span>
+            <Link href="/">
+              <Image src="/images/indigisea-logo.png" alt={brand ?? "IndigiSEA"} width={120} height={80} className="h-20 w-auto" />
             </Link>
             <p className="mt-4 max-w-md text-sm text-muted-foreground">{tagline}</p>
           </div>
